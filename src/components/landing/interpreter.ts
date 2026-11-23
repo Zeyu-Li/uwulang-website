@@ -60,7 +60,7 @@ export default function* run(instructions: string) {
     .split(/([\uD800-\uDBFF][\uDC00-\uDFFF])/)
     .filter((i) => i !== "");
 
-  const count = [0, 0];
+  const count: [number, number] = [0, 0];
   for (const uwu of instructions) {
     if (uwu === "😒") {
       count[0] += 1;
