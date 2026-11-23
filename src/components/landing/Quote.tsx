@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { type RefObject, useRef, useState } from "react";
 import { useIntersection } from "react-use";
 
 const msg_1 = "👇😒👇👇👇👉👆👈😡👉🥺👇👇😒👇👇👇👇👇";
@@ -6,12 +6,16 @@ const msg_2 = "👉👆👈😡👉🥺👉👇😒👇👇👇👉👆👈😡�
 
 export default function Quote() {
   const [scrolled1, setScrolled1] = useState(false);
-  const quoteIntersectionRef = useRef(null);
-  const quoteIntersection = useIntersection(quoteIntersectionRef, {
-    root: null,
-    rootMargin: "0px",
-    threshold: 1,
-  });
+  const quoteIntersectionRef = useRef<HTMLDivElement>(null);
+  // react-use still types the ref as React 18's RefObject (nullable `current`)
+  const quoteIntersection = useIntersection(
+    quoteIntersectionRef as RefObject<HTMLElement>,
+    {
+      root: null,
+      rootMargin: "0px",
+      threshold: 1,
+    }
+  );
   if (
     quoteIntersection &&
     quoteIntersection.intersectionRatio > 0.75 &&
